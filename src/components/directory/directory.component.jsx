@@ -1,5 +1,5 @@
 import React from "react";
-import { sections } from "../../assets/072 directory.data";
+import { sections } from "../../assets/data/072 directory.data";
 import "./directory.styles.scss";
 import MenuItem from "../menu-item/menu-item.component";
 
