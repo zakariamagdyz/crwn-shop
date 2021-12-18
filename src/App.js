@@ -1,8 +1,9 @@
 import "./App.css";
 import { Route, Routes } from "react-router-dom";
+import Header from "./components/header/header.component";
 import HomePage from "./pages/home-page/homepage.component";
 import ShopPage from "./pages/shop/shop.component";
-import Header from "./components/header/header.component";
+import ContactPage from "./pages/contact-page/contactPage.component";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
+        <Route path="/signin" element={<ContactPage />} />
       </Routes>
     </>
   );
