@@ -1,9 +1,12 @@
-import React from "react";
 import SignIn from "../../components/sign-in/sign-in.component";
+import SignUp from "../../components/sign-up/signup.component";
+
+import "./contactPage.styles.scss";
 
 const ContactPage = () => (
-  <div>
+  <div className="contact-page">
     <SignIn />
+    <SignUp />
   </div>
 );
 

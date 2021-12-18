@@ -2,6 +2,8 @@ import React from "react";
 import "./sign-in.styles.scss";
 import CustomInput from "../input-box/customInput.component";
 import CustomBtn from "../custom-btn/customBtn.component";
+import { connect } from "react-redux";
+import { signInUser } from "../../redux/user/user.actions";
 
 class SignIn extends React.Component {
   constructor(props) {
@@ -19,6 +21,17 @@ class SignIn extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
+    const res = localStorage.getItem("user");
+    if (!res) return alert("invalid user or password");
+    const user = JSON.parse(res);
+
+    if (
+      user.email !== this.state.email ||
+      user.password !== this.state.password
+    )
+      return alert("incorrect email or password");
+
+    this.props.signIn_user(user);
   };
   render() {
     return (
@@ -52,4 +65,10 @@ class SignIn extends React.Component {
   }
 }
 
-export default SignIn;
+const mapDispatchToProps = (dispatch) => ({
+  signIn_user: (user) => {
+    dispatch(signInUser(user));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(SignIn);
