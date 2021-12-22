@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authSlice from "../auth/authSlice";
 import directorySlice from "../directory/directorySLice";
+import shopSlice from "../shop-page/shopSlice";
 
 export default configureStore({
-  reducer: { auth: authSlice, directory: directorySlice },
+  reducer: { auth: authSlice, directory: directorySlice, shopItems: shopSlice },
 });

@@ -4,9 +4,9 @@ import { signIn } from "../auth/authSlice";
 import { useEffect } from "react";
 import "./App.css";
 import Header from "../header/header.component";
-import HomePage from "../../pages/home-page/homepage";
-import ShopPage from "../../pages/shop/shop.component";
-import ContactPage from "../../pages/contact-page/contactPage.component";
+import HomePage from "../home-page/homepage";
+import ShopPage from "../shop-page/shop.component";
+import SignInSignOut from "../signs-page/SignInSignUpPage";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
@@ -25,7 +25,7 @@ function App() {
         <Route path="/shop" element={<ShopPage />} />
         <Route
           path="/signin"
-          element={isLoggedIn ? <Navigate replace to="/" /> : <ContactPage />}
+          element={isLoggedIn ? <Navigate replace to="/" /> : <SignInSignOut />}
         />
       </Routes>
     </>
