@@ -12,7 +12,6 @@ function App() {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (!isLoggedIn) return;
     const user = localStorage.getItem("user");
     if (!user) return;
     dispatch(signIn(JSON.parse(user)));
@@ -24,10 +23,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/shop" element={<ShopPage />} />
-        {/* <Route
+        <Route
           path="/signin"
-          element={user ? <Navigate replace to="/" /> : <ContactPage />}
-        /> */}
+          element={isLoggedIn ? <Navigate replace to="/" /> : <ContactPage />}
+        />
       </Routes>
     </>
   );

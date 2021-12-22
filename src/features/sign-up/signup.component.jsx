@@ -1,29 +1,35 @@
-import "../sign-in/sign-in.styles.scss";
-
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { signUp } from "../auth/authSlice";
 import FormInput from "../input-box/customInput.component";
 import CustomBtn from "../custom-btn/customBtn.component";
+import "../sign-in/sign-in.styles.scss";
 
 const SignUp = () => {
-  handelChange = (e) => {
+  const dispatch = useDispatch();
+  const [state, setState] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+  const handleChange = (e) => {
     const { name, value } = e.target;
-    this.setState({ [name]: value });
+    setState({ ...state, [name]: value });
   };
 
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (this.isDataValid(this.state)) {
-      const { displayName, email, password, confirmPassword } = this.state;
-      this.props.setCurrentUsre({
-        displayName: displayName.toLowerCase(),
-        email,
-        password,
-        confirmPassword,
-      });
+    if (isDataValid(state)) {
+      // add user record to database
+      localStorage.setItem("user", JSON.stringify(state));
+      // sign up in application
+      dispatch(signUp(state));
     }
   };
 
-  isDataValid = ({ password, confirmPassword }) => {
+  const isDataValid = ({ password, confirmPassword }) => {
     if (password.trim().length < 8)
       return alert("Minmum length for password is 8 characters");
     if (password.trim() !== confirmPassword.trim())
@@ -36,37 +42,37 @@ const SignUp = () => {
     <div className="sign-up">
       <h2>I don't have an acount</h2>
       <span>setup with your email and password</span>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
         <FormInput
           type="text"
           label="Display Name"
-          name="displayName"
-          value={this.state.displayName}
-          handleChange={this.handelChange}
+          name="name"
+          value={state.name}
+          handleChange={handleChange}
           required
         />
         <FormInput
           type="email"
           label="Email"
           name="email"
-          value={this.state.email}
-          handleChange={this.handelChange}
+          value={state.email}
+          handleChange={handleChange}
           required
         />
         <FormInput
           type="password"
           label="Password"
           name="password"
-          value={this.state.password}
-          handleChange={this.handelChange}
+          value={state.password}
+          handleChange={handleChange}
           required
         />
         <FormInput
           type="password"
           label="Confirm Password"
           name="confirmPassword"
-          value={this.state.confirmPassword}
-          handleChange={this.handelChange}
+          value={state.confirmPassword}
+          handleChange={handleChange}
           required
         />
         <CustomBtn type="submit">Sign up</CustomBtn>

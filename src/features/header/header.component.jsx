@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { signOut } from "../auth/authSlice";
 import { ReactComponent as Logo } from "../../assets/svgs/084 crown.svg";
 import "./header.styles.scss";
 
 const Header = ({ isLoggedIn }) => {
+  const dispatch = useDispatch();
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -15,7 +17,14 @@ const Header = ({ isLoggedIn }) => {
           SHOP
         </Link>
         {isLoggedIn ? (
-          <div className="option">SIGN OUT</div>
+          <div
+            className="option"
+            onClick={() => {
+              dispatch(signOut());
+            }}
+          >
+            SIGN OUT
+          </div>
         ) : (
           <Link className="option" to="/signin">
             SIGN IN

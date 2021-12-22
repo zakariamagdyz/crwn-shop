@@ -11,10 +11,11 @@ const authSlice = createSlice({
     signUp: {
       reducer: (state, action) => {
         state.currentUser = action.payload;
+        state.isLoggedIn = true;
       },
-      prepare: (state, action) => {
+      prepare: (data) => {
         // localStorage.setItem("user", JSON.stringify(action.payload));
-        return { payload: { id: uuidv4(), ...action.payload } };
+        return { payload: { id: uuidv4(), ...data } };
       },
     },
 
