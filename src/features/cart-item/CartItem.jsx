@@ -1,9 +1,12 @@
 import React from "react";
+import { ReactComponent as Logo } from "../../assets/svgs/shopping-bag.svg";
+import "./cartItems.styles.scss";
 
-const CartItem = () => {
+const CartItem = ({ itemsNumber }) => {
   return (
-    <div>
-      <div>cart item </div>
+    <div className="cart-container">
+      <Logo className="logo" />
+      <span className="cart-nums">{itemsNumber}</span>
     </div>
   );
 };
