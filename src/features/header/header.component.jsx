@@ -1,15 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectItemsCount } from "../cart-item/cartSlice";
 import { signOut } from "../auth/authSlice";
 import { ReactComponent as Logo } from "../../assets/svgs/crown.svg";
 import CartItem from "../cart-item/CartItem";
+import CartDropdown from "../cart-dropdown/CartDropdown";
 import "./header.styles.scss";
 
 const Header = ({ isLoggedIn }) => {
+  const [toggleDropdown, setDropdown] = useState(false);
   const dispatch = useDispatch();
   const itemsCount = useSelector(selectItemsCount);
+  const handleToggleDropdown = () => {
+    setDropdown(!toggleDropdown);
+  };
   return (
     <div className="header">
       <Link to="/" className="logo-container">
@@ -36,8 +41,13 @@ const Header = ({ isLoggedIn }) => {
         <Link className="option" to="/contact">
           CONTACT
         </Link>
-        <CartItem itemsNumber={itemsCount} />
+        <CartItem
+          itemsNumber={itemsCount}
+          handleDropdown={handleToggleDropdown}
+        />
       </div>
+
+      {!toggleDropdown && <CartDropdown />}
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from "react";
 import "./collectionItem.styles.scss";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../cart-item/cartSlice";
+import CustomBtn from "../custom-btn/customBtn.component";
 
 const CollectionItem = ({ item }) => {
   const dispatch = useDispatch();
@@ -17,9 +18,9 @@ const CollectionItem = ({ item }) => {
         <span className="price">{price}$</span>
       </div>
       <div className="collection-btn">
-        <button className="btn" onClick={() => dispatch(addToCart(item))}>
+        <CustomBtn onClick={() => dispatch(addToCart(item))}>
           add to cart
-        </button>
+        </CustomBtn>
       </div>
     </div>
   );
