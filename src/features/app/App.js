@@ -7,6 +7,7 @@ import Header from "../header/header.component";
 import HomePage from "../home-page/homepage";
 import ShopCollection from "../shop-collection/shopCollection";
 import SignInSignOut from "../signs-page/SignInSignUpPage";
+import CheckoutPage from "../checkout-page/checkoutPage";
 
 function App({ isLoggedIn, handleSignIn }) {
   useEffect(() => {
@@ -25,6 +26,7 @@ function App({ isLoggedIn, handleSignIn }) {
           path="/signin"
           element={isLoggedIn ? <Navigate replace to="/" /> : <SignInSignOut />}
         />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="*" element={<h1>No route Defined</h1>} />
       </Routes>
     </>

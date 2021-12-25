@@ -39,7 +39,7 @@ const Header = ({ isLoggedIn, handleSignOut }) => {
         <CartItem handleDropdown={handleToggleDropdown} />
       </div>
 
-      {!toggleDropdown && (
+      {toggleDropdown && (
         <CartDropdown
           handleDropdown={handleToggleDropdown}
           navigateTo={navigate}
