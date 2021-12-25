@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useSelector, useDispatch, connect } from "react-redux";
+import { connect } from "react-redux";
 import { signIn } from "../auth/authSlice";
 import { useEffect } from "react";
 import "./App.css";

@@ -11,13 +11,18 @@
   border: 1px solid black;
   box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
   border-radius: 1px;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
 }
 
 .drop-down-footer {
-  position: absolute;
   width: 100%;
-  bottom: 5%;
   text-align: center;
+  margin-top: auto;
+  & > button {
+    width: 100%;
+  }
 }
 
 .cart-title {

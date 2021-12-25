@@ -5,10 +5,13 @@ import { signOut } from "../auth/authSlice";
 import { ReactComponent as Logo } from "../../assets/svgs/crown.svg";
 import CartItem from "../cart-item/CartItem";
 import CartDropdown from "../cart-dropdown/CartDropdown";
+import { useNavigate } from "react-router-dom";
 import "./header.styles.scss";
 
 const Header = ({ isLoggedIn, handleSignOut }) => {
   const [toggleDropdown, setDropdown] = useState(false);
+  const navigate = useNavigate();
+
   const handleToggleDropdown = () => {
     setDropdown(!toggleDropdown);
   };
@@ -36,7 +39,12 @@ const Header = ({ isLoggedIn, handleSignOut }) => {
         <CartItem handleDropdown={handleToggleDropdown} />
       </div>
 
-      {!toggleDropdown && <CartDropdown />}
+      {!toggleDropdown && (
+        <CartDropdown
+          handleDropdown={handleToggleDropdown}
+          navigateTo={navigate}
+        />
+      )}
     </div>
   );
 };
