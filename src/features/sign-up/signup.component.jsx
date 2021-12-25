@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { signUp } from "../auth/authSlice";
 import FormInput from "../input-box/customInput.component";
 import CustomBtn from "../custom-btn/customBtn.component";
 import "../sign-in/sign-in.styles.scss";
 
-const SignUp = () => {
-  const dispatch = useDispatch();
+const SignUp = ({ handleSignUp }) => {
   const [state, setState] = useState({
     name: "",
     email: "",
@@ -25,7 +24,7 @@ const SignUp = () => {
       // add user record to database
       localStorage.setItem("user", JSON.stringify(state));
       // sign up in application
-      dispatch(signUp(state));
+      handleSignUp(state);
     }
   };
 
@@ -81,4 +80,7 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+const mapDispatchToprops = (dispatch) => ({
+  handleSignUp: (user) => dispatch(signUp(user)),
+});
+export default connect(null, mapDispatchToprops)(SignUp);

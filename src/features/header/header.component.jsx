@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { selectItemsCount } from "../cart-item/cartSlice";
+import { connect } from "react-redux";
 import { signOut } from "../auth/authSlice";
 import { ReactComponent as Logo } from "../../assets/svgs/crown.svg";
 import CartItem from "../cart-item/CartItem";
 import CartDropdown from "../cart-dropdown/CartDropdown";
 import "./header.styles.scss";
 
-const Header = ({ isLoggedIn }) => {
+const Header = ({ isLoggedIn, handleSignOut }) => {
   const [toggleDropdown, setDropdown] = useState(false);
-  const dispatch = useDispatch();
-  const itemsCount = useSelector(selectItemsCount);
   const handleToggleDropdown = () => {
     setDropdown(!toggleDropdown);
   };
@@ -25,12 +22,7 @@ const Header = ({ isLoggedIn }) => {
           SHOP
         </Link>
         {isLoggedIn ? (
-          <button
-            className="option header_btn"
-            onClick={() => {
-              dispatch(signOut());
-            }}
-          >
+          <button className="option header_btn" onClick={handleSignOut}>
             SIGN OUT
           </button>
         ) : (
@@ -41,10 +33,7 @@ const Header = ({ isLoggedIn }) => {
         <Link className="option" to="/contact">
           CONTACT
         </Link>
-        <CartItem
-          itemsNumber={itemsCount}
-          handleDropdown={handleToggleDropdown}
-        />
+        <CartItem handleDropdown={handleToggleDropdown} />
       </div>
 
       {!toggleDropdown && <CartDropdown />}
@@ -52,4 +41,8 @@ const Header = ({ isLoggedIn }) => {
   );
 };
 
-export default Header;
+const mapDispatchToprops = (dispatch) => {
+  return { handleSignOut: () => dispatch(signOut()) };
+};
+
+export default connect(null, mapDispatchToprops)(Header);

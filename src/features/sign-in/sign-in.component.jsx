@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { signIn } from "../auth/authSlice";
 import CustomInput from "../input-box/customInput.component";
 import CustomBtn from "../custom-btn/customBtn.component";
 import "./sign-in.styles.scss";
 
-const SignIn = () => {
-  const dispatch = useDispatch();
+const SignIn = ({ handleSignIn }) => {
   const [state, setState] = useState({ email: "", password: "" });
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -24,7 +23,7 @@ const SignIn = () => {
     // check if user data is the same in local storage
     if (!isDataEqual) return alert("incorrect email or password");
     // log in
-    dispatch(signIn(user));
+    handleSignIn(user);
   };
 
   const isDataValid = ({ email, password }) => {
@@ -70,4 +69,7 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+const mapDispatchToprops = (dispatch) => ({
+  handleSignIn: (user) => dispatch(signIn(user)),
+});
+export default connect(null, mapDispatchToprops)(SignIn);

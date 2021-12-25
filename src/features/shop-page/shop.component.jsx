@@ -1,9 +1,7 @@
 import CollectionPreview from "../collection-perview/collectionPreview.component";
-import { useSelector } from "react-redux";
+import { connect } from "react-redux";
 
-const Shop = () => {
-  const collections = useSelector((state) => state.shopItems);
-
+const Shop = ({ collections }) => {
   return (
     <div>
       <h1>Collections</h1>
@@ -14,4 +12,6 @@ const Shop = () => {
   );
 };
 
-export default Shop;
+const mapStateToProps = (state) => ({ collections: state.shopItems });
+
+export default connect(mapStateToProps)(Shop);

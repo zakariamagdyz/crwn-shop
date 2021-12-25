@@ -1,5 +1,8 @@
 import React from "react";
 import { ReactComponent as Logo } from "../../assets/svgs/shopping-bag.svg";
+import { selectItemsCount } from "../cart-item/cartSlice";
+
+import { connect } from "react-redux";
 import "./cartItems.styles.scss";
 
 const CartItem = ({ itemsNumber, handleDropdown }) => {
@@ -11,4 +14,8 @@ const CartItem = ({ itemsNumber, handleDropdown }) => {
   );
 };
 
-export default CartItem;
+const mapStateToProps = (state) => ({
+  itemsNumber: selectItemsCount(state),
+});
+
+export default connect(mapStateToProps)(CartItem);

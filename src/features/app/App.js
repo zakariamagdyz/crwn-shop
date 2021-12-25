@@ -1,5 +1,5 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch, connect } from "react-redux";
 import { signIn } from "../auth/authSlice";
 import { useEffect } from "react";
 import "./App.css";
@@ -8,14 +8,12 @@ import HomePage from "../home-page/homepage";
 import ShopCollection from "../shop-collection/shopCollection";
 import SignInSignOut from "../signs-page/SignInSignUpPage";
 
-function App() {
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const dispatch = useDispatch();
+function App({ isLoggedIn, handleSignIn }) {
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) return;
-    dispatch(signIn(JSON.parse(user)));
-  }, [dispatch]);
+    handleSignIn(JSON.parse(user));
+  }, [handleSignIn]);
 
   return (
     <>
@@ -33,4 +31,14 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return { isLoggedIn: state.auth.isLoggedIn };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleSignIn: (user) => dispatch(signIn(user)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
