@@ -1,8 +1,10 @@
 import React from "react";
 import "./checkoutPage.styles.scss";
 import { connect } from "react-redux";
+import { selectItems, selectTotalPrice } from "../cart-item/cartSlice";
+import CheckoutItem from "../checkout-item/checkoutItem";
 
-const checkoutPage = ({ checkoutItems }) => {
+const checkoutPage = ({ checkoutItems, totalPrice }) => {
   return (
     <div className="checkout">
       <div className="checkout__header">
@@ -12,11 +14,17 @@ const checkoutPage = ({ checkoutItems }) => {
         <span className="checkout__title">Price</span>
         <span className="checkout__title">Remove</span>
       </div>
+      {checkoutItems.map((item) => (
+        <CheckoutItem key={item.id} item={item} />
+      ))}
 
-      <div className="checkout__total"> TOTAL : {888}</div>
+      <div className="checkout__total"> TOTAL : {totalPrice} $</div>
     </div>
   );
 };
 
-const mapStateToProps = (state) => ({ checkoutItems: state.cart.cartItems });
+const mapStateToProps = (state) => ({
+  checkoutItems: selectItems(state),
+  totalPrice: selectTotalPrice(state),
+});
 export default connect(mapStateToProps)(checkoutPage);
